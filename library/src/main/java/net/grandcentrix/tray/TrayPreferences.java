@@ -22,7 +22,8 @@ import net.grandcentrix.tray.core.TrayStorage;
 import net.grandcentrix.tray.provider.ContentProviderStorage;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by pascalwelsch on 11/20/14.
@@ -39,7 +40,7 @@ import android.support.annotation.NonNull;
 public class TrayPreferences extends AbstractTrayPreference<ContentProviderStorage> {
 
     public TrayPreferences(@NonNull final Context context, @NonNull final String module,
-            final int version, final TrayStorage.Type type) {
+                           final int version, final TrayStorage.Type type) {
         super(new ContentProviderStorage(context, module, type), version);
     }
 

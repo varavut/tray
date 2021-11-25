@@ -1,6 +1,5 @@
-<manifest
-    package="net.grandcentrix.tray.sample"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.grandcentrix.tray.sample">
 
     <application
         android:fullBackupContent="@xml/mybackupscheme"
@@ -10,6 +9,7 @@
 
         <activity
             android:name=".SampleActivity"
+            android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MultiProcessService" android:process=":otherProcess"/>
+        <service
+            android:name=".MultiProcessService"
+            android:process=":otherProcess" />
 
         <!-- example for changing the authority -->
         <!-- <provider

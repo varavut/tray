@@ -1,17 +1,16 @@
 apply plugin: 'com.android.library'
-apply plugin: 'jacoco'
-apply plugin: 'bintray-release'
+apply plugin: 'maven-publish'
 
-def final String VERSION_NAME = "0.12.0-SNAPSHOT"
-def final int VERSION_CODE = 14
+def final String VERSION_NAME = "0.13.0"
+def final int VERSION_CODE = 15
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode VERSION_CODE
         versionName VERSION_NAME
 
@@ -28,8 +27,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -42,23 +41,24 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:25.3.1'
-
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'junit:junit:4.12'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
+    androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
+    androidTestImplementation 'com.android.support.test:runner:0.5'
+    testImplementation 'org.mockito:mockito-core:1.9.5'
+    testImplementation 'junit:junit:4.12'
 }
 
-// usage:
-// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
-publish {
-    userOrg = 'passsy'
-    groupId = 'net.grandcentrix.tray'
-    artifactId = 'tray'
-    uploadName = 'Tray'
-    publishVersion = VERSION_NAME
-    description = 'Tray - a SharedPreferences replacement for Android'
-    website = 'https://github.com/grandcentrix/tray'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.varavut'
+                artifactId = 'tray'
+                version = VERSION_NAME
+            }
+        }
+    }
 }
